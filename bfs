@@ -1,0 +1,31 @@
+from collections import deque
+
+def bfs(graph, queue, visited):
+    if not queue:
+        return
+    node = queue.popleft()
+    print(node, end=" ")
+    for neighbor in graph.get(node, []):
+        if neighbor not in visited:
+            visited.add(neighbor)
+            queue.append(neighbor)
+    bfs(graph, queue, visited)
+
+# Take user input
+graph = {}
+n = int(input("Enter number of edges: "))
+print("Enter edges (for example, 1 2):")
+for _ in range(n):
+    u, v = input().split()
+    graph.setdefault(u, []).append(v)
+    graph.setdefault(v, []).append(u)
+
+start_node = input("Enter start node for BFS: ")
+
+# if start_node not in graph:
+#     print(f"Start node {start_node} is not in the graph!")
+# else:
+print("BFS Traversal:")
+visited = set([start_node])
+queue = deque([start_node])
+bfs(graph, queue, visited)
