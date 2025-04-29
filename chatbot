@@ -1,0 +1,37 @@
+class Chatbot:
+    def __init__(self):
+        self.products = ["Laptop", "Smartphone", "Headphones", "Watch"]
+        self.account_balance = 1000  # Example account balance
+
+    def respond(self, user_input):
+        user_input = user_input.lower()
+        
+        if "hi" in user_input or "hello" in user_input:
+            return "Hello! How can I assist you today?"
+        
+        elif "balance" in user_input:
+            return f"Your account balance is ${self.account_balance}."
+        
+        elif "products" in user_input or "items" in user_input:
+            return f"We have the following products: {', '.join(self.products)}."
+        
+        elif "buy" in user_input:
+            return "Please select a product to buy."
+        
+        elif "thank you" in user_input or "thanks" in user_input:
+            return "You're welcome! Have a great day!"
+        
+        else:
+            return "I'm sorry, I didn't quite understand that. Could you please clarify?"
+
+# Create chatbot instance
+bot = Chatbot()
+
+print("Welcome to our online store!")
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == "exit":
+        print("Goodbye! Have a nice day.")
+        break
+    response = bot.respond(user_input)
+    print("Bot:", response)
