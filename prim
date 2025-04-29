@@ -1,0 +1,35 @@
+import heapq
+
+def prim(graph):
+    start = next(iter(graph))
+    visited = set([start])
+    edges = [(cost, start, to) for to, cost in graph[start]]
+    heapq.heapify(edges)
+
+    mst_cost = 0
+    while edges:
+        cost, frm, to = heapq.heappop(edges)
+        if to not in visited:
+            visited.add(to)
+            mst_cost += cost
+            for to_next, cost_next in graph[to]:
+                if to_next not in visited:
+                    heapq.heappush(edges, (cost_next, to, to_next))
+    print("Total MST cost:", mst_cost)
+
+# User input
+graph = {}
+n = int(input("Enter number of nodes: "))
+for _ in range(n):
+    node = input("Enter node name: ")
+    graph[node] = []
+
+m = int(input("Enter number of edges: "))
+for _ in range(m):
+    u = input("Enter from node: ")
+    v = input("Enter to node: ")
+    cost = int(input("Enter cost: "))
+    graph[u].append((v, cost))
+    graph[v].append((u, cost))  # undirected
+
+prim(graph)
